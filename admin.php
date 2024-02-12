@@ -2,18 +2,18 @@
 session_start();
 include "header.php";
 require "connexion.php";
-// require "delete.php";
+require "delete.php";
+if (!isset($_SESSION['loggedUser'])) {
+    header("Location : index.php");
+}
 
 $usersStatement = $requete->prepare('SELECT * FROM users');
 $usersStatement->execute();
 $users = $usersStatement->fetchAll();
 
-if (isset($_POST['delete_user'])) {
-
-    // $idUsersToDelete = $_POST['id'];
-    $deleteUserStatement = $requete->prepare('DELETE FROM users WHERE id = ?');
-    $deleteUserStatement->execute([$_POST['id']]);
-}
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+// }
 
 
 ?>
@@ -21,10 +21,11 @@ if (isset($_POST['delete_user'])) {
 <div class="d-flex justify-content-center align-items-center">
     <table class="table w-75 p-3">
         <tr>
-            <th>Titre</th>
-            <th>Contenu</th>
-            <th>Date</th>
-            <th>Auteur</th>
+            <th>id</th>
+            <th>Pseudo</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
             <th>Supprimer</th>
         </tr>
         <?php
@@ -33,7 +34,10 @@ if (isset($_POST['delete_user'])) {
                 echo "<tr>";
                 echo "<form method='POST'>";
                 echo "<td>" . $user['id'] . "<input type='hidden' name='id' value='" . $user['id'] . "'></td>";
-                echo "<td>" . $user['pseudo'] . "</td>";
+                ?>
+                <td><a href="message_admin.php?id=<?php echo $user['id']; ?>&pseudo=<?php echo $user['pseudo']; ?>"><?php echo $user['pseudo']; ?></a></td>
+                <?php
+                // echo "<td>" . $user['pseudo'] . "</td>";
                 echo "<td>" . $user['name_user'] . "</td>";
                 echo "<td>" . $user['surname'] . "</td>";
                 echo "<td>" . $user['email'] . "</td>";
@@ -43,3 +47,10 @@ if (isset($_POST['delete_user'])) {
             }
         }
         ?>
+    </table>
+</div>
+
+
+
+<?php
+include "footer.php";

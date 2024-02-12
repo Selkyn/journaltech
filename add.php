@@ -32,13 +32,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4"> -->
             <!-- <label for="author" class="form-label">Auteur</label> -->
-            <input type="hidden" class="form-control" id="author" name="author">
-            <div class="invalid-feedback">
+            <!-- <input type="hidden" class="form-control" id="author" name="user_id"> -->
+            <!-- <div class="invalid-feedback">
                 Entrez un nom d'auteur
             </div>
-        </div>
+        </div> -->
         <div class="col-12">
             <input type="submit" name="send">
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
@@ -74,18 +74,22 @@
     // JOIN `users` ON `journal`.`author` = `users`.`id`";
 
     if (isset($_POST['send'])) {
+
+        // $_SESSION['journal_id'] = $_POST['id'];
+        $id = $_POST['id'];
         $title = $_POST['title'];
         $content = $_POST['content'];
         $dates = $_POST['dates'];
-        $author = $_SESSION['pseudo'];
+        $user_id = $_SESSION['id'];
+        echo $user_id;
 
-        $sql = 'INSERT INTO `journal` (`title`, `content`, `dates`, `author`) VALUES (:title, :content, :dates, :author)';
+        $sql = 'INSERT INTO `journal` (`id`, `title`, `content`, `dates`, `user_id`) VALUES (:id, :title, :content, :dates, :user_id)';
         $stmt = $requete->prepare($sql);
-
+        $stmt->bindParam(':id', $id);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':content', $content);
         $stmt->bindParam(':dates', $dates);
-        $stmt->bindParam(':author', $author);
+        $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
     }
     ?>

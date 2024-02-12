@@ -11,6 +11,7 @@
 
 <body>
     <?php
+    
     // if (isset($_SESSION['loggedUser'])) {
     //     $loggedUser = $_SESSION['loggedUser'];
     // }
@@ -18,6 +19,11 @@
 
     <header>
         <h1>Journal Tech</h1>
+        <?php
+        if (isset ($_SESSION['loggedUser'])) {
+            echo "vous etes connecté " . $_SESSION['surname'];
+        }
+        ?>
         <nav>
             <ul>
                 <li><a href="index.php">Articles</a></li>
@@ -28,6 +34,7 @@
                     echo '<li><a href="edit.php">Modifier</a></li>';
                     echo '<li><form action="index.php"  method="post"><input type="submit" value ="delog" name = "delog">
                 </form></li>';
+                echo '<li><a href="contact.php">Contact</a></li>';
                     if (isset($_SESSION['loggedUser']) && $_SESSION["is_admin"] == 1) {
                         echo '<li><a href="admin.php">admin</a></li>';
                     }

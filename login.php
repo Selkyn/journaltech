@@ -1,7 +1,6 @@
 
 <?php
 session_start();
-
 include "header.php";
 include "connexion.php";
 if (isset($_POST['send-login'])) {
@@ -24,11 +23,13 @@ if (isset($_POST['send-login'])) {
                 ];
                 $_SESSION['pseudo'] = $_POST['pseudo'];
                 $_SESSION['surname'] = $_POST['surname'];
-                
+                // $_SESSION['user'] = $responseUsers;
                 // $_SESSION['loggedUser'] = $loggedUser;
                 $_SESSION['loggedUser'] = true;
                 $_SESSION['is_admin'] = $responseUsers['is_admin'];
                 $_SESSION['surname'] = $responseUsers['surname'];
+                $_SESSION['id'] = $responseUsers['id'];
+                // $_SESSION['user_id'] = $responseUsers['user_id'];
                 header('Location: index.php'); 
                 exit();
                 // $_SESSION['surname'] = $_POST['surname'];
@@ -36,18 +37,18 @@ if (isset($_POST['send-login'])) {
         
 
 
-        // if (!isset($loggedUser)) {
-        //     $errorMessage = sprintf(
-        //         'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
-        //         $_POST['email'],
-        //         strip_tags($_POST['password_user'])
+//         if (!isset($loggedUser)) {
+//             $errorMessage = sprintf(
+//                 'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
+//                 $_POST['surname'],
+//                 strip_tags($_POST['password_user'])
 
-        //     );
-            // echo "erreur";
-        }
-    }
-// }
-// }
+//             );
+//             echo "erreur";
+//         }
+//     }
+}
+ }
 
 
 

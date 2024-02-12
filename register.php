@@ -4,6 +4,27 @@ session_start();
 include "header.php";
 include "connexion.php";
 
+if (isset($_POST['send-register'])) {
+    $pseudo = $_POST['pseudo'];
+    $name_user = $_POST['name_user'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $password_user = password_hash($_POST['password_user'], PASSWORD_DEFAULT);
+
+    // $passwordH = password_hash($password_user, PASSWORD_DEFAULT);
+    $sqlRegister = 'INSERT INTO `users` (`pseudo`, `name_user`, `surname`, `email`, `password_user`) VALUES (:pseudo, :name_user, :surname, :email, :password_user)';
+    
+    $stmtRegister = $requete->prepare($sqlRegister);
+    $stmtRegister->bindParam(':pseudo', $pseudo);
+    $stmtRegister->bindParam(':name_user', $name_user);
+    $stmtRegister->bindParam(':surname', $surname);
+    $stmtRegister->bindParam(':email', $email);
+    $stmtRegister->bindParam(':password_user', $password_user);
+    $stmtRegister->execute();
+    header('Location: login.php'); 
+            exit();
+}
+
 ?>
 
 <form class="row g-3 needs-validation d-flex flex-column m-3 mb-5 align-items-center" novalidate method="post">
@@ -74,28 +95,5 @@ include "connexion.php";
     </script>
 
     <?php
-
-    if (isset($_POST['send-register'])) {
-        $pseudo = $_POST['pseudo'];
-        $name_user = $_POST['name_user'];
-        $surname = $_POST['surname'];
-        $email = $_POST['email'];
-        $password_user = password_hash($_POST['password_user'], PASSWORD_DEFAULT);
-
-        // $passwordH = password_hash($password_user, PASSWORD_DEFAULT);
-        $sqlRegister = 'INSERT INTO `users` (`pseudo`, `name_user`, `surname`, `email`, `password_user`) VALUES (:pseudo, :name_user, :surname, :email, :password_user)';
-        
-        $stmtRegister = $requete->prepare($sqlRegister);
-        $stmtRegister->bindParam(':pseudo', $pseudo);
-        $stmtRegister->bindParam(':name_user', $name_user);
-        $stmtRegister->bindParam(':surname', $surname);
-        $stmtRegister->bindParam(':email', $email);
-        $stmtRegister->bindParam(':password_user', $password_user);
-        $stmtRegister->execute();
-        
-    }
-
-
-    
     include "footer.php"
     ?>
