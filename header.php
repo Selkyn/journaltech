@@ -21,7 +21,7 @@
         <h1>Journal Tech</h1>
         <?php
         if (isset ($_SESSION['loggedUser'])) {
-            echo "vous etes connecté " . $_SESSION['surname'];
+            echo "Vous êtes connecté " . $_SESSION['surname'];
         }
         ?>
         <nav>

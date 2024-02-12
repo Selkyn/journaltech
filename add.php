@@ -23,6 +23,13 @@
             </div>
         </div>
         <div class="col-md-4">
+            <label for="image" class="form-label">Image url</label>
+            <input type="text" class="form-control" id="image" name="image" required>
+            <div class="valid-feedback">
+                Contenu valide !
+            </div>
+        </div>
+        <div class="col-md-4">
             <label for="dates" class="form-label">Date</label>
             <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
@@ -79,15 +86,17 @@
         $id = $_POST['id'];
         $title = $_POST['title'];
         $content = $_POST['content'];
+        $image = $_POST['image'];
         $dates = $_POST['dates'];
         $user_id = $_SESSION['id'];
         echo $user_id;
 
-        $sql = 'INSERT INTO `journal` (`id`, `title`, `content`, `dates`, `user_id`) VALUES (:id, :title, :content, :dates, :user_id)';
+        $sql = 'INSERT INTO `journal` (`id`, `title`, `content`, `image`, `dates`, `user_id`) VALUES (:id, :title, :content, :image, :dates, :user_id)';
         $stmt = $requete->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':content', $content);
+        $stmt->bindParam(':image', $image);
         $stmt->bindParam(':dates', $dates);
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();

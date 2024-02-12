@@ -23,6 +23,8 @@ $responsesArticle = $articleStatement->fetch();
     <p><?php echo $responsesArticle['dates']?></p>
     <div>
         <p><?php echo $responsesArticle['content']?></p>
+        <?php
+        echo "<p><img src='" . $responsesArticle['image'] . "' style='width: 400px;'></p>";?>
         <p>Ecrit par <?php echo $responsesArticle['pseudo']?></p>
     </div>
 </div>
@@ -86,7 +88,7 @@ $responsesComment = $commentStatement->fetchALL();
             if($_SESSION['is_admin'] == 1) {
                 echo "<td>";
                 echo "<form action='' method='post'>";
-                    echo "<input type='text' name='id' value='" . $responseComment['id'] . "'>";
+                    echo "<input type='hidden' name='id' value='" . $responseComment['id'] . "'>";
                     echo "<button type='submit' name='delete_comment'>Supprimer</button>";
                     echo "</form>";
                     echo "</td>";

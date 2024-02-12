@@ -12,7 +12,7 @@ $journalJoin = ('SELECT journal.*, users.pseudo as pseudo
 
     if (isset($_GET['search'])) {
         $search = "%" . trim($_GET['search']) . "%";
-        $journalStatement = $requete->prepare('SELECT * FROM journal JOIN users ON journal.user_id = users.id WHERE title LIKE :search');
+        $journalStatement = $requete->prepare('SELECT journal.*, users.pseudo FROM journal JOIN users ON journal.user_id = users.id WHERE title LIKE :search');
         $journalStatement->bindParam(':search', $search, PDO::PARAM_STR);
     } else {
         $journalStatement = $requete->prepare($journalJoin);
@@ -45,9 +45,10 @@ $journalJoin = ('SELECT journal.*, users.pseudo as pseudo
 <div class="d-flex flex-column justify-content-center align-items-center">
     <table class="table w-75 p-3">
         <tr>
-            <!-- <th>#</th> -->
+            <th>#</th>
             <th>Titre</th>
             <th>Contenu</th>
+            <th>Image</th>
             <th>Date</th>
             <th>Auteur</th>
         </tr>
@@ -60,7 +61,10 @@ $journalJoin = ('SELECT journal.*, users.pseudo as pseudo
             <td><a href="article.php?id=<?php echo $reponse['id']; ?>"><?php echo $reponse['title']; ?></a></td>
             <?php
             // echo "<td>" . $reponse['title'] . "</td>";
-            echo "<td>" . $reponse['content'] . "</td>";
+            echo "<td>" . $reponse['content'] . "</td>";?>
+            <td><img src="<?php echo $reponse['image']?>" alt="" style="width: 100px;"></td>
+            
+            <?php
             echo "<td>" . $reponse['dates'] . "</td>";
             echo "<td>" . $reponse['pseudo'] . "</td>";
             // echo '<td><form action="journal.php"  method="get"><input type="submit" value ="Voir article" name = "goJournal">

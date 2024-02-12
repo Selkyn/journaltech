@@ -27,7 +27,7 @@ if (isset($_POST["send_message"])) {
 
 
 ?>
-<form class="row g-3 needs-validation d-flex flex-column m-3 mb-5 align-items-center" novalidate method="post">
+<form class="row g-3 needs-validation d-flex flex-column m-3 mb-4 md-4 align-items-center" novalidate method="post">
 <?php
     if ($_SESSION['is_admin'] !== 1) {
 ?>
